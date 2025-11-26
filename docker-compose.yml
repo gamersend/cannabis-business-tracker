@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # Cannabis Tracker Web App
+  cannabis-tracker:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - DATABASE_URL=postgresql://postgres:${DB_PASSWORD}@postgres:5432/cannabis_tracker
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=cannabis_tracker
+      - DB_USER=postgres
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - cannabis-network
+    restart: unless-stopped
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=cannabis_tracker
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database-setup.sql:/docker-entrypoint-initdb.d/01-setup.sql
+      - ./insert-historic-data.sql:/docker-entrypoint-initdb.d/02-data.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cannabis-network
+    restart: unless-stopped
+
+  # pgAdmin for database management (optional)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@cannabis-tracker.app
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD:-admin123}
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    networks:
+      - cannabis-network
+    restart: unless-stopped
+    profiles:
+      - admin
+
+volumes:
+  postgres_data:
+
+networks:
+  cannabis-network:
+    driver: bridge
