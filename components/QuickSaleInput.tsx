@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { ModelSelector } from './ModelSelector';
+import { VoiceInterface } from './VoiceInterface';
+import { aiAdvisor } from '@/lib/ai-advisor';
 
 interface QuickSaleInputProps {
   onSaleAdded: () => void;
@@ -14,6 +16,8 @@ export function QuickSaleInput({ onSaleAdded }: QuickSaleInputProps) {
   const [parsedData, setParsedData] = useState<any>(null);
   const [showForm, setShowForm] = useState(false);
   const [selectedModel, setSelectedModel] = useState('openai/gpt-4o-mini');
+  const [showVoice, setShowVoice] = useState(false);
+  const [celebrationMessage, setCelebrationMessage] = useState('');
 
   const handleQuickParse = async () => {
     if (!input.trim()) return;
@@ -53,8 +57,15 @@ export function QuickSaleInput({ onSaleAdded }: QuickSaleInputProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(saleData)
       });
-      
+
       if (response.ok) {
+        // Generate AI celebration message
+        const celebration = await aiAdvisor.generateSalesCelebration(saleData);
+        setCelebrationMessage(celebration);
+
+        // Play TTS celebration
+        playSaleCelebration(saleData, celebration);
+
         setInput('');
         setParsedData(null);
         setSuggestions([]);
@@ -68,11 +79,49 @@ export function QuickSaleInput({ onSaleAdded }: QuickSaleInputProps) {
     }
   };
 
+  const playSaleCelebration = async (saleData: any, message: string) => {
+    try {
+      const response = await fetch('/api/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text: message,
+          type: 'sale_confirmation',
+          data: saleData
+        })
+      });
+
+      if (response.ok) {
+        const audioBlob = await response.blob();
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
+        audio.play();
+      }
+    } catch (error) {
+      console.error('Error playing celebration:', error);
+    }
+  };
+
+  const handleVoiceInput = (text: string) => {
+    setInput(text);
+    handleQuickParse();
+  };
+
   return (
     <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-      <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
-        🤖 AI Quick Sale Entry
-      </h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-2xl font-bold text-white flex items-center">
+          🤖 AI Quick Sale Entry
+        </h2>
+        <button
+          onClick={() => setShowVoice(!showVoice)}
+          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+            showVoice ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'
+          } text-white`}
+        >
+          {showVoice ? '🔇 Hide Voice' : '🎤 Voice Mode'}
+        </button>
+      </div>
 
       {/* Model Selector */}
       <div className="mb-4">
@@ -84,6 +133,23 @@ export function QuickSaleInput({ onSaleAdded }: QuickSaleInputProps) {
           onModelChange={setSelectedModel}
         />
       </div>
+
+      {/* Voice Interface */}
+      {showVoice && (
+        <div className="mb-6">
+          <VoiceInterface onSpeechResult={handleVoiceInput} />
+        </div>
+      )}
+
+      {/* Celebration Message */}
+      {celebrationMessage && (
+        <div className="mb-4 p-4 bg-green-500/20 border border-green-400 rounded-lg">
+          <div className="flex items-center space-x-2">
+            <span className="text-2xl">🎉</span>
+            <p className="text-green-200">{celebrationMessage}</p>
+          </div>
+        </div>
+      )}
 
       {/* Natural Language Input */}
       <div className="mb-4">

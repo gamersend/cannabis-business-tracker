@@ -5,6 +5,8 @@ import { QuickSaleInput } from './QuickSaleInput';
 import { CustomerList } from './CustomerList';
 import { ProfitChart } from './ProfitChart';
 import { InventoryStatus } from './InventoryStatus';
+import { AIBusinessAdvisor } from './AIBusinessAdvisor';
+import { AnalyticsDashboard } from './AnalyticsDashboard';
 
 interface DashboardStats {
   totalProfit: number;
@@ -128,6 +130,16 @@ export function Dashboard() {
           </h2>
           <ProfitChart />
         </div>
+      </div>
+
+      {/* Analytics Dashboard */}
+      <div className="mt-8">
+        <AnalyticsDashboard />
+      </div>
+
+      {/* AI Business Advisor */}
+      <div className="mt-8">
+        <AIBusinessAdvisor />
       </div>
 
       {/* Inventory Status */}

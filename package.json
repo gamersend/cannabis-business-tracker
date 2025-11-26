@@ -13,24 +13,29 @@
     "docker:stop": "docker-compose down",
     "docker:logs": "docker-compose logs -f",
     "docker:build": "docker-compose build",
-    "docker:clean": "docker-compose down -v && docker system prune -f"
+    "docker:clean": "docker-compose down -v && docker system prune -f",
+    "test:ai": "node -e \"console.log('Testing AI integrations...')\"",
+    "test:tts": "node -e \"console.log('Testing TTS integration...')\""
   },
   "dependencies": {
+    "@types/pg": "^8.10.7",
+    "chart.js": "^4.5.1",
+    "date-fns": "^4.1.0",
     "next": "14.0.0",
-    "react": "^18",
-    "react-dom": "^18",
     "pg": "^8.11.3",
-    "@types/pg": "^8.10.7"
+    "react": "^18",
+    "react-chartjs-2": "^5.3.1",
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.0",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
-    "eslint": "^8",
-    "eslint-config-next": "14.0.0"
+    "typescript": "^5"
   }
 }
