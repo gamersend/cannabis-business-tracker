@@ -1,5 +1,5 @@
 // Advanced AI Business Advisor using OpenRouter
-import { getTopCustomers, getDailyProfits, getStrains } from './database';
+import { getTopCustomers, getDailyProfits, getStrains } from './server-db';
 
 interface BusinessInsight {
   type: 'recommendation' | 'warning' | 'opportunity' | 'celebration';

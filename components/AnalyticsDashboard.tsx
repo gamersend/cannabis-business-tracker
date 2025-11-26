@@ -165,18 +165,18 @@ export function AnalyticsDashboard() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-6 lg:space-y-8">
       {/* Controls */}
-      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-white flex items-center">
+      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 space-y-3 sm:space-y-0">
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white flex items-center">
             📊 Business Analytics
           </h2>
-          <div className="flex space-x-4">
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
             <select
               value={period}
               onChange={(e) => setPeriod(e.target.value)}
-              className="bg-white/20 text-white rounded-lg px-3 py-2 border border-white/30"
+              className="bg-white/20 text-white rounded-lg px-3 py-2 border border-white/30 text-sm sm:text-base"
             >
               <option value="daily">Daily</option>
               <option value="weekly">Weekly</option>
@@ -185,7 +185,7 @@ export function AnalyticsDashboard() {
             <select
               value={days}
               onChange={(e) => setDays(parseInt(e.target.value))}
-              className="bg-white/20 text-white rounded-lg px-3 py-2 border border-white/30"
+              className="bg-white/20 text-white rounded-lg px-3 py-2 border border-white/30 text-sm sm:text-base"
             >
               <option value={7}>Last 7 days</option>
               <option value={30}>Last 30 days</option>
@@ -196,7 +196,7 @@ export function AnalyticsDashboard() {
         </div>
 
         {/* Growth Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
           <div className="bg-green-500/20 rounded-lg p-4 border border-green-400">
             <div className="text-green-200 text-sm">Current Period</div>
             <div className="text-2xl font-bold text-white">
@@ -228,17 +228,18 @@ export function AnalyticsDashboard() {
       </div>
 
       {/* Charts Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
         {/* Profit Trends */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-          <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6">
+          <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 flex items-center">
             📈 Profit Trends
           </h3>
-          <div className="h-80">
+          <div className="h-64 sm:h-80">
             <Line
               data={profitTrendData}
               options={{
                 ...chartOptions,
+                maintainAspectRatio: false,
                 scales: {
                   ...chartOptions.scales,
                   y1: {
@@ -255,18 +256,18 @@ export function AnalyticsDashboard() {
         </div>
 
         {/* Strain Performance */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-          <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6">
+          <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 flex items-center">
             🌿 Strain Performance
           </h3>
-          <div className="h-80">
-            <Bar data={strainPerformanceData} options={chartOptions} />
+          <div className="h-64 sm:h-80">
+            <Bar data={strainPerformanceData} options={{...chartOptions, maintainAspectRatio: false}} />
           </div>
         </div>
 
         {/* Customer Distribution */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-          <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6">
+          <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 flex items-center">
             👥 Customer Tiers
           </h3>
           <div className="h-80 flex items-center justify-center">

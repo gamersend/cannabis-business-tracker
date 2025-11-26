@@ -16,6 +16,10 @@ const nextConfig = {
         net: false,
         tls: false,
         crypto: false,
+        dns: false,
+        child_process: false,
+        pg: false,
+        'pg-native': false,
       };
     }
     return config;

@@ -54,78 +54,88 @@ export function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-900 via-green-800 to-emerald-900 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-900 via-green-800 to-emerald-900 p-3 sm:p-4 lg:p-6">
       {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-white mb-2">
+      <div className="text-center mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2">
           🌿 Cannabis Business Tracker 🌿
         </h1>
-        <p className="text-green-200 text-lg">
+        <p className="text-green-200 text-sm sm:text-base lg:text-lg">
           <em>Keep track of your green empire, one nug at a time</em> 💚
         </p>
+
+        {/* Mobile Quick Sales Button */}
+        <div className="mt-4 sm:hidden">
+          <a
+            href="/mobile"
+            className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl text-lg transition-all shadow-lg"
+          >
+            📱 Mobile Quick Sales
+          </a>
+        </div>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-white">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8">
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 sm:p-4 lg:p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-green-200 text-sm">Total Profit</p>
-              <p className="text-3xl font-bold">${stats.totalProfit.toLocaleString()}</p>
+              <p className="text-green-200 text-xs sm:text-sm">Total Profit</p>
+              <p className="text-lg sm:text-2xl lg:text-3xl font-bold">${stats.totalProfit.toLocaleString()}</p>
             </div>
-            <div className="text-4xl">💰</div>
+            <div className="text-2xl sm:text-3xl lg:text-4xl">💰</div>
           </div>
         </div>
 
-        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-white">
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 sm:p-4 lg:p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-green-200 text-sm">Total Sales</p>
-              <p className="text-3xl font-bold">{stats.totalTransactions}</p>
+              <p className="text-green-200 text-xs sm:text-sm">Total Sales</p>
+              <p className="text-lg sm:text-2xl lg:text-3xl font-bold">{stats.totalTransactions}</p>
             </div>
-            <div className="text-4xl">📊</div>
+            <div className="text-2xl sm:text-3xl lg:text-4xl">📊</div>
           </div>
         </div>
 
-        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-white">
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 sm:p-4 lg:p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-green-200 text-sm">Top Customer</p>
-              <p className="text-xl font-bold truncate">{stats.topCustomer || 'Loading...'}</p>
+              <p className="text-green-200 text-xs sm:text-sm">Top Customer</p>
+              <p className="text-sm sm:text-lg lg:text-xl font-bold truncate">{stats.topCustomer || 'Loading...'}</p>
             </div>
-            <div className="text-4xl">👑</div>
+            <div className="text-2xl sm:text-3xl lg:text-4xl">👑</div>
           </div>
         </div>
 
-        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-white">
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 sm:p-4 lg:p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-green-200 text-sm">Today's Profit</p>
-              <p className="text-3xl font-bold">${stats.todayProfit.toLocaleString()}</p>
+              <p className="text-green-200 text-xs sm:text-sm">Today's Profit</p>
+              <p className="text-lg sm:text-2xl lg:text-3xl font-bold">${stats.todayProfit.toLocaleString()}</p>
             </div>
-            <div className="text-4xl">🚀</div>
+            <div className="text-2xl sm:text-3xl lg:text-4xl">🚀</div>
           </div>
         </div>
       </div>
 
-      {/* Quick Sale Input */}
-      <div className="mb-8">
+      {/* Quick Sale Input - Hidden on Mobile */}
+      <div className="mb-6 sm:mb-8 hidden sm:block">
         <QuickSaleInput onSaleAdded={handleNewSale} />
       </div>
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
         {/* Customer List */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-          <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6">
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center">
             🏆 Top Customers
           </h2>
           <CustomerList />
         </div>
 
         {/* Profit Chart */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-          <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6">
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center">
             📈 Profit Trends
           </h2>
           <ProfitChart />
@@ -133,7 +143,7 @@ export function Dashboard() {
       </div>
 
       {/* Analytics Dashboard */}
-      <div className="mt-8">
+      <div className="mt-6 sm:mt-8">
         <AnalyticsDashboard />
       </div>
 

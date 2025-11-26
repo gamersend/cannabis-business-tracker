@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { ModelSelector } from './ModelSelector';
 import { VoiceInterface } from './VoiceInterface';
-import { aiAdvisor } from '@/lib/ai-advisor';
 
 interface QuickSaleInputProps {
   onSaleAdded: () => void;
@@ -59,8 +58,8 @@ export function QuickSaleInput({ onSaleAdded }: QuickSaleInputProps) {
       });
 
       if (response.ok) {
-        // Generate AI celebration message
-        const celebration = await aiAdvisor.generateSalesCelebration(saleData);
+        // Generate celebration message
+        const celebration = `🎉 Nice sale! ${saleData.customer_name} - ${saleData.quantity_grams}g for $${saleData.sale_price}. Profit: $${saleData.profit}! Keep it rolling! 🌿💚`;
         setCelebrationMessage(celebration);
 
         // Play TTS celebration
