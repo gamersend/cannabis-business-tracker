@@ -29,9 +29,32 @@
 - **Stock Alerts**: Low inventory warnings
 - **Profit Margins**: Real-time cost vs sale price analysis
 
-## Database Setup
+## Quick Start with Docker 🐳
 
-### 1. Create Database
+### 1. Clone and Setup
+```bash
+git clone https://github.com/gamersend/cannabis-business-tracker.git
+cd cannabis-business-tracker
+cp .env.example .env.local
+```
+
+### 2. Configure Environment
+Edit `.env.local` with your settings:
+```env
+OPENROUTER_API_KEY=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
+DB_PASSWORD=Qzmpwxno1
+```
+
+### 3. Start Everything
+```bash
+npm run docker:start
+```
+
+That's it! 🚀 Your app will be running at `http://localhost:3000`
+
+## Manual Setup (Alternative)
+
+### 1. Database Setup
 ```bash
 # Connect to PostgreSQL
 psql -h 192.168.0.150 -U postgres
@@ -91,17 +114,42 @@ npm run dev
 - **Stoner-Casual UI**: Fun emojis and relaxed language
 - **Quick Entry**: Optimized for fast mobile sales entry
 
+## Docker Commands
+
+```bash
+# Start all services
+npm run docker:start
+
+# Stop all services
+npm run docker:stop
+
+# View logs
+npm run docker:logs
+
+# Rebuild containers
+npm run docker:build
+
+# Clean everything
+npm run docker:clean
+```
+
 ## Deployment
 
 ### Environment Variables:
 ```env
-DATABASE_URL=postgresql://postgres:Qzmpwxno1@192.168.0.150:5432/cannabis_tracker
+OPENROUTER_API_KEY=your-api-key
+DATABASE_URL=postgresql://postgres:password@host:5432/cannabis_tracker
 ```
 
 ### Deploy to Vercel:
 ```bash
 npm run build
 vercel --prod
+```
+
+### Deploy with Docker:
+```bash
+docker-compose up -d
 ```
 
 ## Usage
