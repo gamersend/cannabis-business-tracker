@@ -129,26 +129,6 @@ export async function getDailyProfits(days = 30) {
   }
 }
 
-// AI parsing operations
-export async function logAIParsing(data: {
-  input_text: string;
-  parsed_data: any;
-  confidence_score: number;
-  status: string;
-}) {
-  const client = await pool.connect();
-  try {
-    const result = await client.query(`
-      INSERT INTO ai_parsing_logs (input_text, parsed_data, confidence_score, status)
-      VALUES ($1, $2, $3, $4)
-      RETURNING *
-    `, [data.input_text, JSON.stringify(data.parsed_data), data.confidence_score, data.status]);
-    return result.rows[0];
-  } finally {
-    client.release();
-  }
-}
-
 // Search customers with fuzzy matching
 export async function searchCustomers(query: string) {
   const client = await pool.connect();
