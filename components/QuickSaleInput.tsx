@@ -259,8 +259,8 @@ function SaleForm({ initialData, onSubmit, onCancel, loading }: SaleFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white/10 rounded-lg p-4 mt-4">
-      <h3 className="text-lg font-semibold text-white mb-3">
+    <form onSubmit={handleSubmit} className="glass-panel p-6">
+      <h3 className="text-lg font-medium mb-4 text-white">
         {initialData.confidence > 0.7 ? '✅ Confirm Sale Details' : '📝 Complete Sale Details'}
       </h3>
       
@@ -271,7 +271,7 @@ function SaleForm({ initialData, onSubmit, onCancel, loading }: SaleFormProps) {
             type="text"
             value={formData.customer_name}
             onChange={(e) => setFormData({...formData, customer_name: e.target.value})}
-            className="w-full px-3 py-2 bg-white/20 border border-green-300/30 rounded text-white"
+            className="w-full px-3 py-2 bg-deep-bg/50 border border-glass-border rounded text-white focus:border-neon-pink focus:outline-none"
             required
           />
         </div>
@@ -281,7 +281,7 @@ function SaleForm({ initialData, onSubmit, onCancel, loading }: SaleFormProps) {
           <select
             value={formData.strain_name}
             onChange={(e) => setFormData({...formData, strain_name: e.target.value})}
-            className="w-full px-3 py-2 bg-white/20 border border-green-300/30 rounded text-white"
+            className="w-full px-3 py-2 bg-deep-bg/50 border border-glass-border rounded text-white focus:border-neon-pink focus:outline-none"
             required
           >
             <option value="">Select strain...</option>

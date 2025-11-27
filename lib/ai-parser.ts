@@ -271,12 +271,12 @@ function extractQuantity(input: string): { grams: number; confidence: number } {
       if (match[2]) {
         const amount = parseFloat(match[1]);
         const unit = match[2].toLowerCase();
-        const multiplier = WEIGHT_CONVERSIONS[unit] || 1;
+        const multiplier = (WEIGHT_CONVERSIONS as any)[unit] || 1;
         return { grams: amount * multiplier, confidence: 0.3 };
       } else if (match[1]) {
         // Handle special cases like "eighth", "quarter"
         const unit = match[1].toLowerCase();
-        const grams = WEIGHT_CONVERSIONS[unit] || 0;
+        const grams = (WEIGHT_CONVERSIONS as any)[unit] || 0;
         return { grams, confidence: 0.3 };
       }
     }

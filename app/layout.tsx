@@ -19,9 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="pb-16 sm:pb-0">
+        <div className="fixed inset-0 z-[-1] bg-synthwave-grid opacity-40 pointer-events-none"></div>
+        <div className="fixed inset-0 z-[-1] bg-gradient-to-b from-transparent via-deep-bg/50 to-deep-bg pointer-events-none"></div>
+        <main className="min-h-screen flex flex-col items-center justify-between p-4 md:p-24 relative z-10">
           {children}
-        </div>
+        </main>
         <MobileNav />
       </body>
     </html>

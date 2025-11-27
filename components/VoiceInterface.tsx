@@ -16,7 +16,7 @@ export function VoiceInterface({ onSpeechResult, isListening = false }: VoiceInt
   useEffect(() => {
     // Check if speech recognition is supported
     if (typeof window !== 'undefined') {
-      const SpeechRecognition = window.SpeechRecognition || (window as any).webkitSpeechRecognition;
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
       if (SpeechRecognition) {
         setIsSupported(true);
         recognitionRef.current = new SpeechRecognition();
